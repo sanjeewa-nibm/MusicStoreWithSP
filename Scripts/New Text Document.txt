@@ -1,0 +1,218 @@
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE GetAllAlbums
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+  SELECT [AlbumId]
+      ,[GenreId]
+      ,[ArtistId]
+      ,[Title]
+      ,[Price]
+      ,[AlbumArtUrl]
+  FROM [dbo].[Albums]
+
+
+END
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE GetAllArtists
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+  SELECT [ArtistId]
+      ,[Name]
+  FROM [dbo].[Artists]
+
+END
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE GetAllGenres
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+   SELECT [GenreId]
+      ,[Name]
+      ,[Description]
+  FROM [dbo].[Genres]
+
+END
+GO
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE GetGenresByID
+@GenreId INT
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+   SELECT [GenreId]
+      ,[Name]
+      ,[Description]
+  FROM [dbo].[Genres]
+  WHERE [GenreId] = @GenreId
+END
+GO
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE GetGenresByName
+@GenreName NVARCHAR(100) 
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+   SELECT [GenreId]
+      ,[Name]
+      ,[Description]
+  FROM [dbo].[Genres]
+  WHERE [Name] = @GenreName
+END
+GO
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE InsertAlbum
+@GenreId [int] ,
+@ArtistId [int] ,
+@Title [nvarchar](160) ,
+@Price [decimal](18, 2),
+@AlbumArtUrl [nvarchar](1024)
+AS
+BEGIN
+	INSERT INTO [dbo].[Albums]
+           ([GenreId]
+           ,[ArtistId]
+           ,[Title]
+           ,[Price]
+           ,[AlbumArtUrl])
+     VALUES
+           (@GenreId
+           ,@ArtistId
+           ,@Title
+           ,@Price
+           ,@AlbumArtUrl)
+END
+GO
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE InsertCarts
+@CartId [nvarchar](MAX),
+@AlbumId [int] ,
+@Count [int] ,
+@DateCreated datetime
+AS
+BEGIN
+	INSERT INTO [dbo].[Carts]
+           ([CartId]
+           ,[AlbumId]
+           ,[Count]
+           ,[DateCreated])
+     VALUES
+			(@CartId
+           ,@AlbumId
+           ,@Count
+           ,@DateCreated)
+END
+GO
+
+
+
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE InsertOrders
+@OrderDate datetime,
+@Username nvarchar(max),
+@FirstName nvarchar(160),
+@LastName nvarchar(160),
+@Address nvarchar(70),
+@City nvarchar(40),
+@State nvarchar(40),
+@PostalCode nvarchar(10),
+@Country nvarchar(40),
+@Phone nvarchar(24),
+@Email nvarchar(max),
+@Total decimal(18, 2)
+AS
+BEGIN
+      INSERT INTO [dbo].[Orders]
+           ([OrderDate]
+           ,[Username]
+           ,[FirstName]
+           ,[LastName]
+           ,[Address]
+           ,[City]
+           ,[State]
+           ,[PostalCode]
+           ,[Country]
+           ,[Phone]
+           ,[Email]
+           ,[Total])
+     VALUES
+           (@OrderDate
+           ,@Username
+           ,@FirstName
+           ,@LastName
+           ,@Address
+           ,@City
+           ,@State
+           ,@PostalCode
+           ,@Country
+           ,@Phone
+           ,@Email
+           ,@Total)
+END
+GO

@@ -1,0 +1,6 @@
+﻿Enable-Migrations -ContextTypeName MusicStore.Data.MusicStoreEntities -EnableAutomaticMigrations -Force
+Add-Migration InitialCreate
+Update-Database
+
+
+http://www.entityframeworktutorial.net/code-first/code-based-migration-in-code-first.aspx

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<MusicStore.Web.MusicAlbumMgr.Album>
+
+
+@{
+    ViewBag.Title = "ASP.NET MVC Music Store";
+}
+
+<br/>
+<br />
+
+<ul id="album-list">
+        @foreach (var album in Model)
+        {
+            <li>
+                <a href="@Url.Action("Details", "Store",
+                             new {id = album.AlbumId})">
+                    <span>@album.Title</span>
+                    
+                </a>
+            </li>
+        }
+</ul>
